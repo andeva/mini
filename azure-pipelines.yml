@@ -12,13 +12,20 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
+- task: CopyFiles@2
   inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'index.js'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy index.js'
 
-- script: |
-    npm install
-    node index.js
-  displayName: 'Build and Run JavaScript'
-
+- task: PublishPipelineArtifact@1
+  inputs:
+    artifactName: index-js
+    targetPath: '$(Build.ArtifactStagingDirectory)/index.js'
+    publishLocation: 'pipeline'
+  displayName: 'Publish index.js artifact'
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: 
