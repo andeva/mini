@@ -25,7 +25,3 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)/index.js'
     publishLocation: 'pipeline'
   displayName: 'Publish index.js artifact'
-- task: CopyFiles@2
-  inputs:
-    Contents: '**'
-    TargetFolder: 
